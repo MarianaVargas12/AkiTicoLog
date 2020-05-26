@@ -1,0 +1,16 @@
+%personaje(Nombre, Estatura en cm, lugar de nacimiento, edad, profesion(es), color de pelo).
+personaje('Hanna Gabriel','170','alajuela','37',['boxeador'],'negro').
+personaje('Toledo','178','londres','39',['cantante'],'no tiene').
+personaje('Alex Badilla','175','san ramon','27',['maquillista','cantante'],'rubio').
+personaje('Melissa Mora','170','san ramon','32',['modelo'],'negro').
+personaje('Karina Ramos','173','heredia','26',['modelo'],'castano').
+personaje('Edgar Silva','173','liberia','52',['presentador','periodista'],'negro').
+personaje('Johanna Solano','177','san jose','29',['modelo','miss costa rica'],'negro').
+personaje('Ignacio Santos','180','cuba','58',['periodista','presentador','abogado'],'negro').
+personaje('Franklin Chang Diaz','178','san jose','69',['atronauta','fisico','ingeniero mecanico'],'negro').
+personaje('Ines Sanchez','170','cuba','88',['periodista'],'negro').
+personaje('Natalia Carvajal','173','escazu','29',['modelo'],'cafe').
+personaje('Carlos Alvarado','174','san jose','40',['politico','politologo','presidente','escritor','periodista'],'negro').
+personaje('Keylor Navas','185','san jose','33',['portero','deportista','futbolista'],'negro').
+personaje('Shirley Cruz','165','san jose','34',['futbolista'],'negro').
+personaje('Hernan Jimenez','178','san jose','40',['director de cine','actor','comediante'],'negro').
