@@ -19,4 +19,5 @@ oraciones(acerto,[]).
 oraciones(incompresion,[]).
 oraciones(miestado,[]).
 oraciones(aleatorias,[]).
-oracio
+oraciones(preguntas_aleatorias,[]).
+

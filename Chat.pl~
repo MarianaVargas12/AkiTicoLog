@@ -5,12 +5,12 @@
 
 % -------------------------------Inicio-----------------------------------
 % Inicia la conversacion
-Inicio:-
-    Bienvenida,
+inicio:-
+    bienvenida,
     preparada,
     adivinar.
 
-Bienvenida:-
+bienvenida:-
     oraciones(bienvenida,Lista),
     escoger_aleatorio(Lista,Saludo),
     imprimir_usuario(aki),
