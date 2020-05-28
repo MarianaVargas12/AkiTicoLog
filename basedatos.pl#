@@ -1,0 +1,35 @@
+preguntas(color_pelo,[]).
+preguntas(vive,[]).
+preguntas(hijos,[]).
+preguntas(graduado,[]).
+preguntas(edad,[]).
+pregutnas(estatura,[]).
+preguntas(deporte,[]).
+preguntas(pelo,[]).
+pregunta(relacion,[]).
+pregunta(profesion,[]).
+pregunta(genero,[]).
+preguntas(representacion,[]).
+
+oraciones(despedida,[
+              ['Adios!'],
+              ['Ven a jugar conmigo luego.'],
+              ['Nos vemos'],
+              ['bueno :(, adios'],
+              ['Que tengas un lindo dia'],
+              ['Te cuidas'],
+              ['bye bye'],
+              ['Te voy a extrañar']]).
+oraciones(bienvenida,[
+              ['Holaaaa, bienvenido a akiticolog'],
+              ['Buenas, que dicha que vino'],
+              ['Bienvenido a akiticolog'],
+              ['me],
+              [],
+              []]).
+oraciones(fallar,[]).
+oraciones(adivinar,[]).
+oraciones(acerto,[]).
+oraciones(incompresion,[]).
+oraciones(miestado,[]).
+oraciones(aleatorias,[]).
