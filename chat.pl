@@ -1,26 +1,34 @@
 
 
 %Otros archivos
-:-[BaseDatos].
+:-[basedatos].
+:- use_module(library(random)).
+
 
 % -------------------------------Inicio-----------------------------------
 % Inicia la conversacion
 inicio:-
+    saludo,
     bienvenida,
     preparada,
     adivinar.
 
 %Da la bienvenida al usuario
-bienvenida:-
-    oraciones(bienvenida,Lista),
+saludo:-
+    oraciones(saludar,Lista),
     escoger_aleatorio(Lista,Saludo),
     habla(aki),
     imprimirconsola(Saludo),
     habla(usuario),
     leer(_).
+bienvenida:-
+    habla(aki),
+    write('Le voy a explicar lo que vamos a jugar, usted va a pensar en uno de estos personajes:
+    yo le voy a hacer preguntas para intentar adivinar en quien esta pensando. Es muy facil.').
+
 adivinar:-
     repeat,
-    habla(bot),
+    habla(aki),
     .
 
 % ---------------------------Lista paracomenzar-------------------------
@@ -54,8 +62,9 @@ preparada(Respuesta):-
 
 % No respondio con si o no
 preparada(_):-
-  habla(bot),
-  write('No respondiste con SI o NO, intentalo de nuevo'),
+  habla(aki),
+  write('No respondiste con SI o NO, intentalo de nuevo\n'),
+  habla(usuario),
   leer(Respuesta),
   preparada(Respuesta).
 
@@ -78,3 +87,9 @@ habla(usuario):-
 nombre_Aki('Aki').
 usuario('tu').
 
+%Escoge aleatoriamente un elemento de una lista
+escoger_aleatorio(Lista, Elemento):-
+    length(Lista, Longitud),
+    Mayor is Longitud + 1,
+    random(1, Mayor, Rand),
+    nElemento(Lista, Rand, Elemento).
