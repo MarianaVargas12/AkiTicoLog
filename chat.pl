@@ -28,8 +28,7 @@ bienvenida:-
 
 adivinar:-
     repeat,
-    habla(aki),
-    .
+    habla(aki).
 
 % ---------------------------Lista paracomenzar-------------------------
 %Pregunta si ya penso en la persona
@@ -68,7 +67,19 @@ preparada(_):-
   leer(Respuesta),
   preparada(Respuesta).
 
+%--------------------------Preguntas--------------------------------
+preguntas:-
+    caracteristicas(Lista),
+    adivinar(Lista).
 
+adivinar(Lista):-
+    escoger_aleatorio(Lista,Caract),
+    eliminar(Caract,Lista,Resultado),
+    preguntas(Caract,ListaP),
+    escoger_aleatorio(ListaP,Pregunta),
+    imprimirconsola(Pregunta),
+    habla(usuario),
+    leer(_).
 
 
 %--------------------------------Extras-------------------------------
@@ -93,3 +104,16 @@ escoger_aleatorio(Lista, Elemento):-
     Mayor is Longitud + 1,
     random(1, Mayor, Rand),
     nElemento(Lista, Rand, Elemento).
+
+%Funcion utilizada para tomar el dato del numero en una lista
+nElemento([Cabeza|_], 1, Cabeza).
+nElemento([_|Cola], N, Elemento):-
+    nElemento(Cola, N1, Elemento),
+    N is N1 + 1.
+
+%Funcion que elimina un elemento de una Lista
+
+eliminar(Elemento, [Elemento|Resultado], Resultado).
+
+eliminar(Elemento, [Y|Ys], [Y|Zs]):-
+          eliminar(Elemento, Ys, Zs).

@@ -1,7 +1,9 @@
 
 
 %Otros archivos
-:-[BaseDatos].
+:-[basedatos].
+:- use_module(library(random)).
+
 
 % -------------------------------Inicio-----------------------------------
 % Inicia la conversacion
@@ -12,16 +14,21 @@ inicio:-
     adivinar.
 
 %Da la bienvenida al usuario
-bienvenida:-
-    oraciones(bienvenida,Lista),
+saludo:-
+    oraciones(saludar,Lista),
     escoger_aleatorio(Lista,Saludo),
     habla(aki),
     imprimirconsola(Saludo),
     habla(usuario),
     leer(_).
+bienvenida:-
+    habla(aki),
+    write('Le voy a explicar lo que vamos a jugar, usted va a pensar en uno de estos personajes:
+    yo le voy a hacer preguntas para intentar adivinar en quien esta pensando. Es muy facil.').
+
 adivinar:-
     repeat,
-    habla(bot),
+    habla(aki),
     .
 
 % ---------------------------Lista paracomenzar-------------------------
@@ -55,12 +62,25 @@ preparada(Respuesta):-
 
 % No respondio con si o no
 preparada(_):-
-  habla(bot),
-  write('No respondiste con SI o NO, intentalo de nuevo'),
+  habla(aki),
+  write('No respondiste con SI o NO, intentalo de nuevo\n'),
+  habla(usuario),
   leer(Respuesta),
   preparada(Respuesta).
 
+%--------------------------Preguntas--------------------------------
+preguntas:-
+    caracteristicas(Lista),
+    adivinar(Lista).
 
+adivinar(Lista):-
+    escoger_aleatorio(Lista,Caract),
+    eliminar(Caract,Lista,Resultado),
+    preguntas(Caract,ListaP),
+    escoger_aleatorio(ListaP,Pregunta),
+    imprimirconsola(Pregunta),
+    habla(usuario),
+    leer(_).
 
 
 %--------------------------------Extras-------------------------------
@@ -85,3 +105,16 @@ escoger_aleatorio(Lista, Elemento):-
     Mayor is Longitud + 1,
     random(1, Mayor, Rand),
     nElemento(Lista, Rand, Elemento).
+
+%Funcion utilizada para tomar el dato del numero en una lista
+nElemento([Cabeza|_], 1, Cabeza).
+nElemento([_|Cola], N, Elemento):-
+    nElemento(Cola, N1, Elemento),
+    N is N1 + 1.
+
+%Funcion que elimina un elemento de una Lista
+
+eliminar(Elemento, [Elemento|Resultado], Resultado).
+
+eliminar(Elemento, [Y|Ys], [Y|Zs]):-
+          eliminar(Elemento, Ys, Zs).
