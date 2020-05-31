@@ -79,8 +79,55 @@ adivinar(Lista):-
     escoger_aleatorio(ListaP,Pregunta),
     imprimirconsola(Pregunta),
     habla(usuario),
-    leer(_).
+    leer(S),
+    adivinar(S,Resultado).
 
+adivinar(Caracteristicas,ListaC):-
+    length(Caracteristicas,Cant),
+    length(ListaC,M),
+    verificar(Cant,M,Caracteristicas,ListaC).
+
+%--------------------------Verificacion------------------------------
+verificar(Cant,0,Caracteristicas,ListaC):-
+    .
+
+
+verificar(0,M,Caracteristicas,ListaC):-
+    .
+
+
+verificar(Cant,M,Caracteristicas,ListaC):-
+    nElemento(Caracteristicas,Cant,Elemento),
+    veri_caract(Elemento,ListaC,M,Nueva),
+    eliminar(Elemento,Caracteristicas,Nuev_Carac),
+    length(Nueva,F),
+    length(Nuev_Carac,K),
+    verificar(F,K,Nuev_Carac,Nueva).
+
+%Cuando no es ninguna de las caracteristicas
+veri_caract(Elemento_buscar,ListaC,0,Nueva):-
+    excepciones().
+
+%Encuentra el dato en la caracteristica
+veri_caract(Elemento_buscar,ListaC,M,Nueva):-
+    nElemento(ListaC,M,Caracteristica),
+    caracteristicas_bd(Caracteristica,X),
+    member(Elemento_buscar,X),
+    %verificar dato (Mario)
+    eliminar(Caracteristica,ListaC,Nueva).
+
+%Cuando no ha encontrado el dato en la primera caracteristica
+veri_caract(Elemento_buscar,ListaC,M,Nueva):-
+    Nuevo is M-1,
+    veri_caract(Elemento_buscar,ListaC,Nuevo,Nueva).
+
+veri_caract(Elemento_buscar,ListaC,M,Nueva):-
+    nosabe(P),
+    member(Elemento_buscar,P).
+
+
+%Excepcion uno no sabe
+excepcion(Caracteristicas,ListaC)
 
 %--------------------------------Extras-------------------------------
 %Revisa si la respuesta fue si o no
@@ -89,6 +136,8 @@ afirmativo(S):-
 
 negativo(S):-
   member('no',S).
+
+primer_elemento([X|Cola], X,Cola).
 
 %Dice quien habla para que el usuario no se pierda
 habla(aki):-

@@ -28,8 +28,7 @@ bienvenida:-
 
 adivinar:-
     repeat,
-    habla(aki),
-    .
+    habla(aki).
 
 % ---------------------------Lista paracomenzar-------------------------
 %Pregunta si ya penso en la persona
@@ -80,7 +79,16 @@ adivinar(Lista):-
     escoger_aleatorio(ListaP,Pregunta),
     imprimirconsola(Pregunta),
     habla(usuario),
-    leer(_).
+    leer(S),
+    adivinar(S,Resultado).
+
+adivinar(Caracteristicas,ListaC):-
+    verificar().
+
+%--------------------------Verificacion------------------------------
+verificar().
+
+
 
 
 %--------------------------------Extras-------------------------------
@@ -90,6 +98,8 @@ afirmativo(S):-
 
 negativo(S):-
   member('no',S).
+
+primer_elemento([X|Cola], X,Cola).
 
 %Dice quien habla para que el usuario no se pierda
 habla(aki):-
