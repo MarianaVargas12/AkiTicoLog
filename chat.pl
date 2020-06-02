@@ -1,8 +1,18 @@
 
 
 %Otros archivos
-:-[basedatos].
+:-[BaseDatos].
 :- use_module(library(random)).
+ :- dynamic     estatura/1,
+                residencia/1,
+                edad/1,
+                profesion/1,
+                color/1,
+                largo/1,
+                tipo/1,
+                genero/1,
+                estadocivil/1.
+
 
 
 % -------------------------------Inicio-----------------------------------
@@ -28,7 +38,31 @@ bienvenida:-
 
 adivinar:-
     repeat,
-    habla(aki).
+    habla(aki),
+    comenzarJuego.
+comenzarJuego:-
+    retract(estatura(_)),
+    retract(residencia(_)),
+    retract(edad(_)),
+    retract(profesion(_)),
+    retract(color(_)),
+    retract(largo(_)),
+    retract(tipo(_)),
+    retract(genero(_)),
+    retract(estadocivil(_)),
+    assert(estatura(_)),
+    assert(residencia(_)),
+    assert(edad(_)),
+    assert(profesion(_)),
+    assert(color(_)),
+    assert(largo(_)),
+    assert(tipo(_)),
+    assert(genero(_)),
+    assert(estadocivil(_)),
+    preguntas.
+
+
+
 
 % ---------------------------Lista paracomenzar-------------------------
 %Pregunta si ya penso en la persona
@@ -88,12 +122,29 @@ adivinar(Caracteristicas,ListaC):-
     verificar(Cant,M,Caracteristicas,ListaC).
 
 %--------------------------Verificacion------------------------------
-verificar(Cant,0,Caracteristicas,ListaC):-
-    .
+%Finalizacion, busca y adivina el personaje
+verificar(_,0,_,_):-
+    estatura(Estatura),
+    residencia(Residencia),
+    edad(Edad),
+    profesion(Profesion),
+    color(Color),
+    largo(Largo),
+    tipo(Tipo),
+    genero(Genero),
+    estadocivil(Estadocivil),
+    buscar(X,Estatura,Residencia,Edad,Profesion,Color,Largo,Tipo,Genero,Estadocivil),
+    habla(aki),
+    write('Su personaje es'),
+    write(X),
+    write('?'),
+    habla(usuario),
+    leer(Respuesta),
+    final(Respuesta).
 
-
-verificar(0,M,Caracteristicas,ListaC):-
-    .
+%sigue preguntando porque faltan datos
+verificar(0,_,_,ListaC):-
+    adivinar(ListaC).
 
 
 verificar(Cant,M,Caracteristicas,ListaC):-
@@ -104,33 +155,135 @@ verificar(Cant,M,Caracteristicas,ListaC):-
     length(Nuev_Carac,K),
     verificar(F,K,Nuev_Carac,Nueva).
 
-%Cuando no es ninguna de las caracteristicas
-veri_caract(Elemento_buscar,ListaC,0,Nueva):-
-    excepciones().
-
-%Encuentra el dato en la caracteristica
-veri_caract(Elemento_buscar,ListaC,M,Nueva):-
-    nElemento(ListaC,M,Caracteristica),
-    caracteristicas_bd(Caracteristica,X),
+%Encuentra la estatura
+veri_caract(Elemento_buscar,ListaC,Nueva):-
+    caracteristicas_bd(estatura,X),
     member(Elemento_buscar,X),
+    retract(estatura(_)),
+    assert(estatura(Elemento_buscar)),
     %verificar dato (Mario)
-    eliminar(Caracteristica,ListaC,Nueva).
+    eliminar(estatura,ListaC,Nueva).
+%Encuentra donde nacio
+veri_caract(Elemento_buscar,ListaC,Nueva):-
+    caracteristicas_bd(residencia,X),
+    member(Elemento_buscar,X),
+    retract(residencia(_)),
+    assert(residencia(Elemento_buscar)),
+    %verificar dato (Mario)
+    eliminar(residencia,ListaC,Nueva).
+%Encuentra la edad
+veri_caract(Elemento_buscar,ListaC,Nueva):-
+    caracteristicas_bd(edad,X),
+    member(Elemento_buscar,X),
+    retract(edad(_)),
+    assert(edad(Elemento_buscar)),
+    %verificar dato (Mario)
+    eliminar(edad,ListaC,Nueva).
+%Encuentra la profesion
+veri_caract(Elemento_buscar,ListaC,Nueva):-
+    caracteristicas_bd(profesion,X),
+    member(Elemento_buscar,X),
+    retract(profesion(_)),
+    assert(profesion(Elemento_buscar)),
+    %verificar dato (Mario)
+    eliminar(profesion,ListaC,Nueva).
+%Encuentra encuentra el color de pelo
+veri_caract(Elemento_buscar,ListaC,Nueva):-
+    caracteristicas_bd(color,X),
+    member(Elemento_buscar,X),
+    retract(color(_)),
+    assert(color(Elemento_buscar)),
+    %verificar dato (Mario)
+    eliminar(color,ListaC,Nueva).
+%Encuentra el largo de pelo
+veri_caract(Elemento_buscar,ListaC,Nueva):-
+    caracteristicas_bd(largo,X),
+    member(Elemento_buscar,X),
+    retract(largo(_)),
+    assert(largo(Elemento_buscar)),
+    %verificar dato (Mario)
+    eliminar(largo,ListaC,Nueva).
+%Encuentra el tipo de pelo
+veri_caract(Elemento_buscar,ListaC,Nueva):-
+    caracteristicas_bd(tipo,X),
+    member(Elemento_buscar,X),
+    retract(tipo(_)),
+    assert(tipo(Elemento_buscar)),
+    %verificar dato (Mario)
+    eliminar(tipo,ListaC,Nueva).
+%Encuentra el genero
+veri_caract(Elemento_buscar,ListaC,Nueva):-
+    caracteristicas_bd(genero,X),
+    member(Elemento_buscar,X),
+    retract(genero(_)),
+    assert(genero(Elemento_buscar)),
+    %verificar dato (Mario)
+    eliminar(genero,ListaC,Nueva).
+%Encuentra el estado civil
+veri_caract(Elemento_buscar,ListaC,Nueva):-
+    caracteristicas_bd(estadocivil,X),
+    member(Elemento_buscar,X),
+    retract(estadocivil(_)),
+    assert(estadocivil(Elemento_buscar)),
+    eliminar(estadocivil,ListaC,Nueva).
 
-%Cuando no ha encontrado el dato en la primera caracteristica
-veri_caract(Elemento_buscar,ListaC,M,Nueva):-
-    Nuevo is M-1,
-    veri_caract(Elemento_buscar,ListaC,Nuevo,Nueva).
-
-veri_caract(Elemento_buscar,ListaC,M,Nueva):-
+%no sabe la respuesta
+veri_caract(Elemento_buscar,_,_,_):-
     nosabe(P),
     member(Elemento_buscar,P).
 
+%si lo que dijo no lo entiende
+veri_caract(_,_,_,_):-
+    excepcion.
 
 %Excepcion uno no sabe
-excepcion(Caracteristicas,ListaC)
+excepcion:-
+    oraciones(incompresion,ListaP),
+    escoger_aleatorio(ListaP,Pregunta),
+    habla(aki),
+    imprimirconsola(Pregunta),
+    habla(usuario),
+    leer(Respuesta),
+    adivinar(Respuesta).
+
+%-----------------------------Finalizar------------------------------
+final(Respuesta):-
+    afirmativo(Respuesta),!,
+    oraciones(acerto,S),
+    escoger_aleatorio(S,Pregunta),
+    habla(aki),
+    imprimirconsola(Pregunta),
+    write('quiere jugar de nuevo?'),
+    habla(usuario),
+    leer(Respuesta),
+    jugarNuevo(Respuesta).
+
+final(Respuesta):-
+    negativo(Respuesta),!,
+    oraciones(fallar,S),
+    escoger_aleatorio(S,Pregunta),
+    habla(aki),
+    imprimirconsola(Pregunta),
+    write('quiere jugar de nuevo?'),
+    habla(usuario),
+    leer(Respuesta),
+    jugarNuevo(Respuesta).
+jugarNuevo(Respuesta):-
+    afirmativo(Respuesta),!,
+    habla(aki),
+    write('juguemos'),
+    comenzarJuego.
+jugarNuevo(Respuesta):-
+    negativo(Respuesta),!,
+    oraciones(despedida,P),
+    escoger_aleatorio(P,Pregunta),
+    habla(aki),
+    imprimirconsola(Pregunta).
+
 
 %--------------------------------Extras-------------------------------
 %Revisa si la respuesta fue si o no
+
 afirmativo(S):-
   member('si',S).
 
