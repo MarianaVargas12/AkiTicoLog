@@ -1,16 +1,65 @@
-%personaje(Nombre, Estatura en cm, lugar de nacimiento, edad, profesion(es), color de pelo).
-personaje('Hanna Gabriel','170','alajuela','37',['boxeador'],'negro').
-personaje('Toledo','178','londres','39',['cantante'],'no tiene').
-personaje('Alex Badilla','175','san ramon','27',['maquillista','cantante'],'rubio').
-personaje('Melissa Mora','170','san ramon','32',['modelo'],'negro').
-personaje('Karina Ramos','173','heredia','26',['modelo'],'castano').
-personaje('Edgar Silva','173','liberia','52',['presentador','periodista'],'negro').
-personaje('Johanna Solano','177','san jose','29',['modelo','miss costa rica'],'negro').
-personaje('Ignacio Santos','180','cuba','58',['periodista','presentador','abogado'],'negro').
-personaje('Franklin Chang Diaz','178','san jose','69',['atronauta','fisico','ingeniero mecanico'],'negro').
-personaje('Ines Sanchez','170','cuba','88',['periodista'],'negro').
-personaje('Natalia Carvajal','173','escazu','29',['modelo'],'cafe').
-personaje('Carlos Alvarado','174','san jose','40',['politico','politologo','presidente','escritor','periodista'],'negro').
-personaje('Keylor Navas','185','san jose','33',['portero','deportista','futbolista'],'negro').
-personaje('Shirley Cruz','165','san jose','34',['futbolista'],'negro').
-personaje('Hernan Jimenez','178','san jose','40',['director de cine','actor','comediante'],'negro').
+%personaje(Nombre, Estatura en cm, lugar de nacimiento, edad,
+% profesion(es), color de pelo,longitud del pelo,tipo de
+% pelo,genero,estado civil(solter@/casad@))
+%
+personaje('Hanna Gabriel','170','alajuela','37',['boxeador'],'negro','largo','dreads','mujer','casado').
+personaje('Toledo','178','londres','39',['cantante'],'no tiene','no tiene','calvo','hombre','casado').
+personaje('Alex Badilla','175','san ramon','27',['maquillista','cantante'],'rubio','corto','lacio','hombre','soltero').
+personaje('Melissa Mora','170','san ramon','32',['modelo','cantante'],'negro','largo','lacio','mujer','casado').
+personaje('Karina Ramos','173','heredia','26',['modelo'],'castano','largo','lacio','mujer','soltero').
+personaje('Edgar Silva','173','liberia','52',['presentador','periodista'],'negro','corto','lacio','hombre','casado').
+personaje('Johanna Solano','177','san jose','29',['modelo','miss costa rica','triatlona'],'negro','largo','lacio','mujer','soltero').
+personaje('Ignacio Santos','180','cuba','58',['periodista','presentador','abogado'],'negro','corto','lacio','hombre','casado').
+personaje('Franklin Chang Diaz','178','san jose','69',['atronauta','fisico','ingeniero mecanico'],'negro','corto','lacio','hombre','casado').
+personaje('Ines Sanchez','170','cuba','88',['periodista','presentador'],'negro','corto','colocho','mujer','soltero').
+personaje('Natalia Carvajal','173','escazu','29',['modelo'],'cafe','largo','lacio','mujer','soltero').
+personaje('Carlos Alvarado','174','san jose','40',['politico','politologo','presidente','escritor','periodista'],'negro','corto','lacio','hombre','casado').
+personaje('Keylor Navas','185','san jose','33',['portero','deportista','futbolista'],'negro','corto','lacio','hombre','casado').
+personaje('Shirley Cruz','165','san jose','34',['futbolista'],'negro','largo','lacio','mujer','soltero').
+personaje('Hernan Jimenez','178','san jose','40',['director de cine','actor','comediante'],'negro','corto','colocho','hombre','soltero').
+
+% funciones para buscar personajes que coincidan con el
+% parametro ingresado por el usuario.
+
+estatura(ESTATURA,X):- personaje(X,ESTATURA,_,_,_,_,_,_,_,_).
+lugNac(LUGAR,X):- personaje(X,_,LUGAR,_,_,_,_,_,_,_).
+edad(EDAD,X):- personaje(X,_,_,EDAD,_,_,_,_,_,_).
+profesion(PROFESION,X):- personaje(X,_,_,_,A,_,_,_,_,_),buscList(PROFESION,A).
+colorPelo(COLOR,X):- personaje(X,_,_,_,_,COLOR,_,_,_,_).
+longPelo(LONGITUD,X):- personaje(X,_,_,_,_,_,LONGITUD,_,_,_).
+tipPelo(TIPO,X):- personaje(X,_,_,_,_,_,_,TIPO,_,_).
+genero(GENERO,X):- personaje(X,_,_,_,_,_,_,_,GENERO,_).
+estCiv(CIVIL,X):- personaje(X,_,_,_,_,_,_,_,_,CIVIL).
+
+%funcion para buscar en una lista un elemento
+buscList(X,[X|_]).
+buscList(X,[_|Y]):- buscList(X,Y).
+buscarLista(X,[_|Y]):- buscList().
+
+% funcion que busca un personaje que coincida los mismos parametros
+
+buscar(X,Est,Lug,Ed,Prof,ColP,LongP,TipP,Gene,Civ):-
+    estatura(Est,X),
+    lugNac(Lug,X),
+    edad(Ed,X),
+    profesion(Prof,X),
+    colorPelo(ColP,X),
+    longPelo(LongP,X),
+    tipPelo(TipP,X),
+    genero(Gene,X),
+    estCiv(Civ,X).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
