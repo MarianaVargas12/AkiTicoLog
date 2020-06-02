@@ -147,9 +147,9 @@ verificar(0,_,_,ListaC):-
     adivinar(ListaC).
 
 
-verificar(Cant,M,Caracteristicas,ListaC):-
+verificar(Cant,_,Caracteristicas,ListaC):-
     nElemento(Caracteristicas,Cant,Elemento),
-    veri_caract(Elemento,ListaC,M,Nueva),
+    veri_caract(Elemento,ListaC,Nueva),
     eliminar(Elemento,Caracteristicas,Nuev_Carac),
     length(Nueva,F),
     length(Nuev_Carac,K),
@@ -228,12 +228,12 @@ veri_caract(Elemento_buscar,ListaC,Nueva):-
     eliminar(estadocivil,ListaC,Nueva).
 
 %no sabe la respuesta
-veri_caract(Elemento_buscar,_,_,_):-
+veri_caract(Elemento_buscar,_,_):-
     nosabe(P),
     member(Elemento_buscar,P).
 
 %si lo que dijo no lo entiende
-veri_caract(_,_,_,_):-
+veri_caract(_,_,_):-
     excepcion.
 
 %Excepcion uno no sabe

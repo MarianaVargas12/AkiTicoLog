@@ -156,7 +156,7 @@ verificar(Cant,M,Caracteristicas,ListaC):-
     verificar(F,K,Nuev_Carac,Nueva).
 
 %Encuentra la estatura
-veri_caract(Elemento_buscar,ListaC,M,Nueva):-
+veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(estatura,X),
     member(Elemento_buscar,X),
     retract(estatura(_)),
@@ -164,7 +164,7 @@ veri_caract(Elemento_buscar,ListaC,M,Nueva):-
     %verificar dato (Mario)
     eliminar(estatura,ListaC,Nueva).
 %Encuentra donde nacio
-veri_caract(Elemento_buscar,ListaC,M,Nueva):-
+veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(residencia,X),
     member(Elemento_buscar,X),
     retract(residencia(_)),
@@ -172,7 +172,7 @@ veri_caract(Elemento_buscar,ListaC,M,Nueva):-
     %verificar dato (Mario)
     eliminar(residencia,ListaC,Nueva).
 %Encuentra la edad
-veri_caract(Elemento_buscar,ListaC,M,Nueva):-
+veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(edad,X),
     member(Elemento_buscar,X),
     retract(edad(_)),
@@ -180,7 +180,7 @@ veri_caract(Elemento_buscar,ListaC,M,Nueva):-
     %verificar dato (Mario)
     eliminar(edad,ListaC,Nueva).
 %Encuentra la profesion
-veri_caract(Elemento_buscar,ListaC,M,Nueva):-
+veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(profesion,X),
     member(Elemento_buscar,X),
     retract(profesion(_)),
@@ -188,7 +188,7 @@ veri_caract(Elemento_buscar,ListaC,M,Nueva):-
     %verificar dato (Mario)
     eliminar(profesion,ListaC,Nueva).
 %Encuentra encuentra el color de pelo
-veri_caract(Elemento_buscar,ListaC,M,Nueva):-
+veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(color,X),
     member(Elemento_buscar,X),
     retract(color(_)),
@@ -196,7 +196,7 @@ veri_caract(Elemento_buscar,ListaC,M,Nueva):-
     %verificar dato (Mario)
     eliminar(color,ListaC,Nueva).
 %Encuentra el largo de pelo
-veri_caract(Elemento_buscar,ListaC,M,Nueva):-
+veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(largo,X),
     member(Elemento_buscar,X),
     retract(largo(_)),
@@ -204,7 +204,7 @@ veri_caract(Elemento_buscar,ListaC,M,Nueva):-
     %verificar dato (Mario)
     eliminar(largo,ListaC,Nueva).
 %Encuentra el tipo de pelo
-veri_caract(Elemento_buscar,ListaC,M,Nueva):-
+veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(tipo,X),
     member(Elemento_buscar,X),
     retract(tipo(_)),
@@ -212,7 +212,7 @@ veri_caract(Elemento_buscar,ListaC,M,Nueva):-
     %verificar dato (Mario)
     eliminar(tipo,ListaC,Nueva).
 %Encuentra el genero
-veri_caract(Elemento_buscar,ListaC,M,Nueva):-
+veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(genero,X),
     member(Elemento_buscar,X),
     retract(genero(_)),
@@ -220,7 +220,7 @@ veri_caract(Elemento_buscar,ListaC,M,Nueva):-
     %verificar dato (Mario)
     eliminar(genero,ListaC,Nueva).
 %Encuentra el estado civil
-veri_caract(Elemento_buscar,ListaC,_,Nueva):-
+veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(estadocivil,X),
     member(Elemento_buscar,X),
     retract(estadocivil(_)),
