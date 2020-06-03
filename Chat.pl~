@@ -1,7 +1,7 @@
 
 
 %Otros archivos
-:-[basedatos].
+:-[basedatos,bnf].
 :- use_module(library(random)).
  :- dynamic     estatura/1,
                 residencia/1,
@@ -346,3 +346,6 @@ buscar(X,Est,Lug,Ed,Prof,ColP,LongP,TipP,Gene,Civ):-
     tipPelo(TipP,X),
     genero(Gene,X),
     estCiv(Civ,X).
+
+
+:-inicio.

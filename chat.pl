@@ -346,3 +346,6 @@ buscar(X,Est,Lug,Ed,Prof,ColP,LongP,TipP,Gene,Civ):-
     tipPelo(TipP,X),
     genero(Gene,X),
     estCiv(Civ,X).
+
+
+:-inicio.
