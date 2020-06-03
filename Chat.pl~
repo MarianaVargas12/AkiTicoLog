@@ -1,7 +1,7 @@
 
 
 %Otros archivos
-:-[basedatos].
+:-[basedatos,bnf].
 :- use_module(library(random)).
  :- dynamic     estatura/1,
                 residencia/1,
@@ -100,22 +100,36 @@ preguntas:-
 
 adivinar(Lista):-
     escoger_aleatorio(Lista,Caract),
-    eliminar(Caract,Lista,Resultado),
+    %eliminar(Caract,Lista,Resultado),
     preguntas(Caract,ListaP),
     escoger_aleatorio(ListaP,Pregunta),
     imprimirconsola(Pregunta),
     habla(usuario),
     leer(S),
-    adivinar(S,Resultado).
+    length(S,Cant),
+    length(Lista,M),
+    print(M),
+    verificar(Cant,M,S,Lista).
 
-adivinar(Caracteristicas,ListaC):-
-    length(Caracteristicas,Cant),
-    length(ListaC,M),
-    verificar(Cant,M,Caracteristicas,ListaC).
 
 %--------------------------Verificacion------------------------------
-%Finalizacion, busca y adivina el personaje
+
+verificar(Cant,_,Caracteristicas,ListaC):-
+    write(Caracteristicas),
+    nElemento(Caracteristicas,Cant,Elemento),
+    veri_caract(Elemento,ListaC,Nueva),!,
+    eliminar(Elemento,Caracteristicas,Nuev_Carac),
+    length(Nueva,F),
+    length(Nuev_Carac,K),
+    verificar(K,F,Nuev_Carac,Nueva).
+
+%sigue preguntando porque faltan datos
+verificar(0,_,_,ListaC):-
+    write(ListaC),
+    adivinar(ListaC).
+
 verificar(_,0,_,_):-
+    write('aqui'),
     estatura(Estatura),
     residencia(Residencia),
     edad(Edad),
@@ -127,29 +141,13 @@ verificar(_,0,_,_):-
     estadocivil(Estadocivil),
     buscar(X,Estatura,Residencia,Edad,Profesion,Color,Largo,Tipo,Genero,Estadocivil),
     habla(aki),
-    write('Su personaje es'),
+    write('Su personaje es '),
     write(X),
     write('?'),
-    habla(usuario).
+    habla(usuario),
     leer(Respuesta),
     final(Respuesta).
 
-%sigue preguntando porque faltan datos
-verificar(0,_,_,ListaC):-
-    write('ver'),
-    adivinar(ListaC).
-verificar(Cant,_,Caracteristicas,ListaC):-
-    write(Caracteristicas),
-    write(Cant),
-    nElemento(Caracteristicas,Cant,Elemento),
-    write('?1'),
-    veri_caract(Elemento,ListaC,Nueva),!,
-    write('?2'),
-    eliminar(Elemento,Caracteristicas,Nuev_Carac),
-    length(Nueva,F),
-    length(Nuev_Carac,K),
-    write(F),
-    verificar(K,F,Nuev_Carac,Nueva).
 
 %Encuentra la estatura
 veri_caract(Elemento_buscar,ListaC,Nueva):-
