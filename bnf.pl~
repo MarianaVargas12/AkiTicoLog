@@ -3,7 +3,7 @@ leer(Res):-read(X),
     atomic_list_concat(List," ",X),
     oracion(List,[]),
    analizar(List,Res),!.
-leer('no_se').
+leer(['no_se']).
 
 %Funcion que comprueba las caracteristicas ingresadas por el usuario
 analizar(List,Res):-caracteristicas_bd(estatura,A),

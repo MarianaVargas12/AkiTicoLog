@@ -121,7 +121,8 @@ nombre([personaje|S],S).
 
 %Sustantivos
 %Profesion
-sustantivo([boxeador|S],S).
+sustantivo([boxeadora|S],S).
+sustantivo([influencer|S],S).
 sustantivo([cantante|S],S).
 sustantivo([maquillista|S],S).
 sustantivo([modelo|S],S).
