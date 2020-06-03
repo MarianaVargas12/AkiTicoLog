@@ -108,26 +108,15 @@ adivinar(Lista):-
     leer(S),
     length(S,Cant),
     length(Lista,M),
-    print(M),
-    verificar(Cant,M,S,Lista).
+    F is M-1,
+    print(F),
+    verificar(Cant,F,S,Lista).
 
 
 %--------------------------Verificacion------------------------------
 
-verificar(Cant,_,Caracteristicas,ListaC):-
-    write(Caracteristicas),
-    nElemento(Caracteristicas,Cant,Elemento),
-    veri_caract(Elemento,ListaC,Nueva),!,
-    eliminar(Elemento,Caracteristicas,Nuev_Carac),
-    length(Nueva,F),
-    length(Nuev_Carac,K),
-    verificar(K,F,Nuev_Carac,Nueva).
 
 %sigue preguntando porque faltan datos
-verificar(0,_,_,ListaC):-
-    write(ListaC),
-    adivinar(ListaC).
-
 verificar(_,0,_,_):-
     write('aqui'),
     estatura(Estatura),
@@ -147,6 +136,19 @@ verificar(_,0,_,_):-
     habla(usuario),
     leer(Respuesta),
     final(Respuesta).
+verificar(0,_,_,ListaC):-
+    write(ListaC),
+    adivinar(ListaC).
+
+verificar(Cant,_,Caracteristicas,ListaC):-
+    write(Caracteristicas),
+    nElemento(Caracteristicas,Cant,Elemento),
+    veri_caract(Elemento,ListaC,Nueva),!,
+    eliminar(Elemento,Caracteristicas,Nuev_Carac),
+    length(Nueva,F),
+    length(Nuev_Carac,K),
+    verificar(K,F,Nuev_Carac,Nueva).
+
 
 
 %Encuentra la estatura

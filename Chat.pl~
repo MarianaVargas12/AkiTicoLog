@@ -114,20 +114,8 @@ adivinar(Lista):-
 
 %--------------------------Verificacion------------------------------
 
-verificar(Cant,_,Caracteristicas,ListaC):-
-    write(Caracteristicas),
-    nElemento(Caracteristicas,Cant,Elemento),
-    veri_caract(Elemento,ListaC,Nueva),!,
-    eliminar(Elemento,Caracteristicas,Nuev_Carac),
-    length(Nueva,F),
-    length(Nuev_Carac,K),
-    verificar(K,F,Nuev_Carac,Nueva).
 
 %sigue preguntando porque faltan datos
-verificar(0,_,_,ListaC):-
-    write(ListaC),
-    adivinar(ListaC).
-
 verificar(_,0,_,_):-
     write('aqui'),
     estatura(Estatura),
@@ -147,6 +135,19 @@ verificar(_,0,_,_):-
     habla(usuario),
     leer(Respuesta),
     final(Respuesta).
+verificar(0,_,_,ListaC):-
+    write(ListaC),
+    adivinar(ListaC).
+
+verificar(Cant,_,Caracteristicas,ListaC):-
+    write(Caracteristicas),
+    nElemento(Caracteristicas,Cant,Elemento),
+    veri_caract(Elemento,ListaC,Nueva),!,
+    eliminar(Elemento,Caracteristicas,Nuev_Carac),
+    length(Nueva,F),
+    length(Nuev_Carac,K),
+    verificar(K,F,Nuev_Carac,Nueva).
+
 
 
 %Encuentra la estatura
@@ -219,20 +220,23 @@ veri_caract(Elemento_buscar,_,_):-
    member(Elemento_buscar,P),!.
 
 %si lo que dijo no lo entiende
-veri_caract(_,_,_):-
-    excepcion.
+veri_caract(_,ListaC,_):-
+    excepcion(ListaC).
 
 
 
 %Excepcion uno no sabe
-excepcion:-
+excepcion(ListaC):-
     oraciones(incompresion,ListaP),
     escoger_aleatorio(ListaP,Pregunta),
     habla(aki),
     imprimirconsola(Pregunta),
     habla(usuario),
     leer(Respuesta),
-    adivinar(Respuesta).
+    length(Respuesta,Cant),
+    length(ListaC,M),
+    print(M),
+    verificar(Cant,M,Respuesta,ListaC).
 
 %-----------------------------Finalizar------------------------------
 final(Respuesta):-
