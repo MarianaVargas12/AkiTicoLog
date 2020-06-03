@@ -1,7 +1,7 @@
 
 
 %Otros archivos
-:-[BaseDatos].
+:-[basedatos].
 :- use_module(library(random)).
  :- dynamic     estatura/1,
                 residencia/1,
@@ -40,16 +40,8 @@ adivinar:-
     repeat,
     habla(aki),
     comenzarJuego.
+
 comenzarJuego:-
-    retract(estatura(_)),
-    retract(residencia(_)),
-    retract(edad(_)),
-    retract(profesion(_)),
-    retract(color(_)),
-    retract(largo(_)),
-    retract(tipo(_)),
-    retract(genero(_)),
-    retract(estadocivil(_)),
     assert(estatura(_)),
     assert(residencia(_)),
     assert(edad(_)),
@@ -138,103 +130,101 @@ verificar(_,0,_,_):-
     write('Su personaje es'),
     write(X),
     write('?'),
-    habla(usuario),
+    habla(usuario).
     leer(Respuesta),
     final(Respuesta).
 
 %sigue preguntando porque faltan datos
 verificar(0,_,_,ListaC):-
+    write('ver'),
     adivinar(ListaC).
-
-
 verificar(Cant,_,Caracteristicas,ListaC):-
+    write(Caracteristicas),
+    write(Cant),
     nElemento(Caracteristicas,Cant,Elemento),
-    veri_caract(Elemento,ListaC,Nueva),
+    write('?1'),
+    veri_caract(Elemento,ListaC,Nueva),!,
+    write('?2'),
     eliminar(Elemento,Caracteristicas,Nuev_Carac),
     length(Nueva,F),
     length(Nuev_Carac,K),
-    verificar(F,K,Nuev_Carac,Nueva).
+    write(F),
+    verificar(K,F,Nuev_Carac,Nueva).
 
 %Encuentra la estatura
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(estatura,X),
-    member(Elemento_buscar,X),
+    buscList(Elemento_buscar,X),!,
     retract(estatura(_)),
     assert(estatura(Elemento_buscar)),
-    %verificar dato (Mario)
     eliminar(estatura,ListaC,Nueva).
 %Encuentra donde nacio
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(residencia,X),
-    member(Elemento_buscar,X),
+    buscList(Elemento_buscar,X),!,
     retract(residencia(_)),
     assert(residencia(Elemento_buscar)),
-    %verificar dato (Mario)
     eliminar(residencia,ListaC,Nueva).
 %Encuentra la edad
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(edad,X),
-    member(Elemento_buscar,X),
+    buscList(Elemento_buscar,X),!,
     retract(edad(_)),
     assert(edad(Elemento_buscar)),
-    %verificar dato (Mario)
     eliminar(edad,ListaC,Nueva).
 %Encuentra la profesion
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(profesion,X),
-    member(Elemento_buscar,X),
+    buscList(Elemento_buscar,X),!,
     retract(profesion(_)),
     assert(profesion(Elemento_buscar)),
-    %verificar dato (Mario)
     eliminar(profesion,ListaC,Nueva).
 %Encuentra encuentra el color de pelo
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(color,X),
-    member(Elemento_buscar,X),
+    buscList(Elemento_buscar,X),!,
     retract(color(_)),
     assert(color(Elemento_buscar)),
-    %verificar dato (Mario)
     eliminar(color,ListaC,Nueva).
 %Encuentra el largo de pelo
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(largo,X),
-    member(Elemento_buscar,X),
+    buscList(Elemento_buscar,X),!,
     retract(largo(_)),
     assert(largo(Elemento_buscar)),
-    %verificar dato (Mario)
     eliminar(largo,ListaC,Nueva).
 %Encuentra el tipo de pelo
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(tipo,X),
-    member(Elemento_buscar,X),
+    buscList(Elemento_buscar,X),!,
     retract(tipo(_)),
     assert(tipo(Elemento_buscar)),
-    %verificar dato (Mario)
     eliminar(tipo,ListaC,Nueva).
 %Encuentra el genero
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(genero,X),
-    member(Elemento_buscar,X),
+    buscList(Elemento_buscar,X),!,
     retract(genero(_)),
     assert(genero(Elemento_buscar)),
-    %verificar dato (Mario)
     eliminar(genero,ListaC,Nueva).
 %Encuentra el estado civil
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(estadocivil,X),
-    member(Elemento_buscar,X),
+    buscList(Elemento_buscar,X),!,
     retract(estadocivil(_)),
     assert(estadocivil(Elemento_buscar)),
     eliminar(estadocivil,ListaC,Nueva).
 
 %no sabe la respuesta
 veri_caract(Elemento_buscar,_,_):-
-    nosabe(P),
-    member(Elemento_buscar,P).
+   nosabe(P),
+   member(Elemento_buscar,P),!.
 
 %si lo que dijo no lo entiende
 veri_caract(_,_,_):-
     excepcion.
+
+
 
 %Excepcion uno no sabe
 excepcion:-
@@ -280,15 +270,20 @@ jugarNuevo(Respuesta):-
     habla(aki),
     imprimirconsola(Pregunta).
 
+imprimirconsola([]):- nl.
+imprimirconsola([H|T]):-
+    write(H),
+    write(' '),
+    imprimirconsola(T).
 
 %--------------------------------Extras-------------------------------
 %Revisa si la respuesta fue si o no
 
 afirmativo(S):-
-  member('si',S).
+  member('si',S),!.
 
 negativo(S):-
-  member('no',S).
+  member('no',S),!.
 
 primer_elemento([X|Cola], X,Cola).
 
@@ -319,3 +314,35 @@ eliminar(Elemento, [Elemento|Resultado], Resultado).
 
 eliminar(Elemento, [Y|Ys], [Y|Zs]):-
           eliminar(Elemento, Ys, Zs).
+
+
+%--------------------------Buscar-------------------------
+
+
+% funciones para buscar personajes que coincidan con el
+% parametro ingresado por el usuario.
+estatura(ESTATURA,X):- personaje(X,ESTATURA,_,_,_,_,_,_,_,_).
+lugNac(LUGAR,X):- personaje(X,_,LUGAR,_,_,_,_,_,_,_).
+edad(EDAD,X):- personaje(X,_,_,EDAD,_,_,_,_,_,_).
+profesion(PROFESION,X):- personaje(X,_,_,_,A,_,_,_,_,_),buscList(PROFESION,A).
+colorPelo(COLOR,X):- personaje(X,_,_,_,_,COLOR,_,_,_,_).
+longPelo(LONGITUD,X):- personaje(X,_,_,_,_,_,LONGITUD,_,_,_).
+tipPelo(TIPO,X):- personaje(X,_,_,_,_,_,_,TIPO,_,_).
+genero(GENERO,X):- personaje(X,_,_,_,_,_,_,_,GENERO,_).
+estCiv(CIVIL,X):- personaje(X,_,_,_,_,_,_,_,_,CIVIL).
+
+%funcion para buscar en una lista un elemento
+buscList(X,[X|_]).
+buscList(X,[_|Y]):- buscList(X,Y).
+
+% funcion que busca un personaje que coincida los mismos parametros
+buscar(X,Est,Lug,Ed,Prof,ColP,LongP,TipP,Gene,Civ):-
+    estatura(Est,X),
+    lugNac(Lug,X),
+    edad(Ed,X),
+    profesion(Prof,X),
+    colorPelo(ColP,X),
+    longPelo(LongP,X),
+    tipPelo(TipP,X),
+    genero(Gene,X),
+    estCiv(Civ,X).
