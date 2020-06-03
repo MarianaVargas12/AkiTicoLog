@@ -39,19 +39,19 @@ bienvenida:-
 adivinar:-
     repeat,
     habla(aki),
-    comenzarJuego.
+    comenzarJuego,!.
 
 comenzarJuego:-
-    assert(estatura(_)),
-    assert(residencia(_)),
-    assert(edad(_)),
-    assert(profesion(_)),
-    assert(color(_)),
-    assert(largo(_)),
-    assert(tipo(_)),
-    assert(genero(_)),
-    assert(estadocivil(_)),
-    preguntas.
+    asserta(estatura(_)),
+    asserta(residencia(_)),
+    asserta(edad(_)),
+    asserta(profesion(_)),
+    asserta(color(_)),
+    asserta(largo(_)),
+    asserta(tipo(_)),
+    asserta(genero(_)),
+    asserta(estadocivil(_)),
+    preguntas,!.
 
 
 
@@ -96,7 +96,7 @@ preparada(_):-
 %--------------------------Preguntas--------------------------------
 preguntas:-
     caracteristicas(Lista),
-    adivinar(Lista).
+    adivinar(Lista),!.
 
 adivinar(Lista):-
     escoger_aleatorio(Lista,Caract),
@@ -110,7 +110,7 @@ adivinar(Lista):-
     length(Lista,M),
     F is M-1,
     print(F),
-    verificar(Cant,F,S,Lista).
+    verificar(Cant,F,S,Lista),!.
 
 
 %--------------------------Verificacion------------------------------
@@ -128,17 +128,26 @@ verificar(_,0,_,_):-
     tipo(Tipo),
     genero(Genero),
     estadocivil(Estadocivil),
-    buscar(X,Estatura,Residencia,Edad,Profesion,Color,Largo,Tipo,Genero,Estadocivil),
+    buscar(X,Estatura,Residencia,Edad,Profesion,Color,Largo,Tipo,Genero,Estadocivil),!,
+    retract(estatura(Estatura)),
+    retract(residencia(Residencia)),
+    retract(edad(Edad)),
+    retract(profesion(Profesion)),
+    retract(color(Color)),
+    retract(largo(Largo)),
+    retract(tipo(Tipo)),
+    retract(genero(Genero)),
+    retract(estadocivil(Estadocivil)),
     habla(aki),
     write('Su personaje es '),
     write(X),
     write('?'),
     habla(usuario),
     leer(Respuesta),
-    final(Respuesta).
+    final(Respuesta),!.
 verificar(0,_,_,ListaC):-
     write(ListaC),
-    adivinar(ListaC).
+    adivinar(ListaC),!.
 
 verificar(Cant,_,Caracteristicas,ListaC):-
     write(Caracteristicas),
@@ -147,7 +156,7 @@ verificar(Cant,_,Caracteristicas,ListaC):-
     eliminar(Elemento,Caracteristicas,Nuev_Carac),
     length(Nueva,F),
     length(Nuev_Carac,K),
-    verificar(K,F,Nuev_Carac,Nueva).
+    verificar(K,F,Nuev_Carac,Nueva),!.
 
 
 
@@ -156,63 +165,63 @@ veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(estatura,X),
     buscList(Elemento_buscar,X),!,
     retract(estatura(_)),
-    assert(estatura(Elemento_buscar)),
+    asserta(estatura(Elemento_buscar)),
     eliminar(estatura,ListaC,Nueva).
 %Encuentra donde nacio
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(residencia,X),
     buscList(Elemento_buscar,X),!,
     retract(residencia(_)),
-    assert(residencia(Elemento_buscar)),
+    asserta(residencia(Elemento_buscar)),
     eliminar(residencia,ListaC,Nueva).
 %Encuentra la edad
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(edad,X),
     buscList(Elemento_buscar,X),!,
     retract(edad(_)),
-    assert(edad(Elemento_buscar)),
+    asserta(edad(Elemento_buscar)),
     eliminar(edad,ListaC,Nueva).
 %Encuentra la profesion
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(profesion,X),
     buscList(Elemento_buscar,X),!,
     retract(profesion(_)),
-    assert(profesion(Elemento_buscar)),
+    asserta(profesion(Elemento_buscar)),
     eliminar(profesion,ListaC,Nueva).
 %Encuentra encuentra el color de pelo
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(color,X),
     buscList(Elemento_buscar,X),!,
     retract(color(_)),
-    assert(color(Elemento_buscar)),
+    asserta(color(Elemento_buscar)),
     eliminar(color,ListaC,Nueva).
 %Encuentra el largo de pelo
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(largo,X),
     buscList(Elemento_buscar,X),!,
     retract(largo(_)),
-    assert(largo(Elemento_buscar)),
+    asserta(largo(Elemento_buscar)),
     eliminar(largo,ListaC,Nueva).
 %Encuentra el tipo de pelo
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(tipo,X),
     buscList(Elemento_buscar,X),!,
     retract(tipo(_)),
-    assert(tipo(Elemento_buscar)),
+    asserta(tipo(Elemento_buscar)),
     eliminar(tipo,ListaC,Nueva).
 %Encuentra el genero
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(genero,X),
     buscList(Elemento_buscar,X),!,
     retract(genero(_)),
-    assert(genero(Elemento_buscar)),
+    asserta(genero(Elemento_buscar)),
     eliminar(genero,ListaC,Nueva).
 %Encuentra el estado civil
 veri_caract(Elemento_buscar,ListaC,Nueva):-
     caracteristicas_bd(estadocivil,X),
     buscList(Elemento_buscar,X),!,
     retract(estadocivil(_)),
-    assert(estadocivil(Elemento_buscar)),
+    asserta(estadocivil(Elemento_buscar)),
     eliminar(estadocivil,ListaC,Nueva).
 
 %no sabe la respuesta
@@ -222,7 +231,7 @@ veri_caract(Elemento_buscar,_,_):-
 
 %si lo que dijo no lo entiende
 veri_caract(_,ListaC,_):-
-    excepcion(ListaC).
+    excepcion(ListaC),!.
 
 
 
@@ -237,7 +246,7 @@ excepcion(ListaC):-
     length(Respuesta,Cant),
     length(ListaC,M),
     print(M),
-    verificar(Cant,M,Respuesta,ListaC).
+    verificar(Cant,M,Respuesta,ListaC),!.
 
 %-----------------------------Finalizar------------------------------
 final(Respuesta):-
@@ -249,7 +258,7 @@ final(Respuesta):-
     write('quiere jugar de nuevo?'),
     habla(usuario),
     leer(Respuesta),
-    jugarNuevo(Respuesta).
+    jugarNuevo(Respuesta),!.
 
 final(Respuesta):-
     negativo(Respuesta),!,
@@ -260,7 +269,7 @@ final(Respuesta):-
     write('quiere jugar de nuevo?'),
     habla(usuario),
     leer(Respuesta),
-    jugarNuevo(Respuesta).
+    jugarNuevo(Respuesta),!.
 jugarNuevo(Respuesta):-
     afirmativo(Respuesta),!,
     habla(aki),

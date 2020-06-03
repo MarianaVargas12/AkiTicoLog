@@ -257,8 +257,8 @@ final(Respuesta):-
     imprimirconsola(Pregunta),
     write('quiere jugar de nuevo?'),
     habla(usuario),
-    leer(Respuesta),
-    jugarNuevo(Respuesta),!.
+    leer(Resp_lei),
+    jugarNuevo(Resp_lei),!.
 
 final(Respuesta):-
     negativo(Respuesta),!,
@@ -268,8 +268,8 @@ final(Respuesta):-
     imprimirconsola(Pregunta),
     write('quiere jugar de nuevo?'),
     habla(usuario),
-    leer(Respuesta),
-    jugarNuevo(Respuesta),!.
+    leer(Resp_lei),
+    jugarNuevo(Resp_lei),!.
 jugarNuevo(Respuesta):-
     afirmativo(Respuesta),!,
     habla(aki),
