@@ -108,8 +108,9 @@ adivinar(Lista):-
     leer(S),
     length(S,Cant),
     length(Lista,M),
-    print(M),
-    verificar(Cant,M,S,Lista).
+    F is M-1,
+    print(F),
+    verificar(Cant,F,S,Lista).
 
 
 %--------------------------Verificacion------------------------------
