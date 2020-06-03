@@ -224,6 +224,11 @@ veri_caract(Elemento_buscar,ListaC,Nueva):-
     asserta(estadocivil(Elemento_buscar)),
     eliminar(estadocivil,ListaC,Nueva).
 
+%no sabe la respuesta
+veri_caract(Elemento_buscar,_,_):-
+   nosabe(P),
+   member(Elemento_buscar,P),!.
+
 %si lo que dijo no lo entiende
 veri_caract(_,ListaC,_):-
     excepcion(ListaC),!.
