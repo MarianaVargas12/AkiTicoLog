@@ -54,7 +54,6 @@ bienvenida:-
 
 adivinar:-
     repeat,
-    habla(aki),
     comenzarJuego,!.
 
 comenzarJuego:-
@@ -118,6 +117,7 @@ adivinar(Lista):-
     escoger_aleatorio(Lista,Caract),
     preguntas(Caract,ListaP),
     escoger_aleatorio(ListaP,Pregunta),
+    habla(aki),
     imprimirconsola(Pregunta),
     habla(usuario),
     leer(S),
@@ -158,6 +158,26 @@ verificar(_,0,_,_):-
     habla(usuario),
     leer(Respuesta),
     final(Respuesta),!.
+
+verificar(_,0,_,_):-
+    retract(estatura(_)),
+    retract(residencia(_)),
+    retract(edad(_)),
+    retract(profesion(_)),
+    retract(color(_)),
+    retract(largo(_)),
+    retract(tipo(_)),
+    retract(genero(_)),
+    retract(estadocivil(_)),
+    habla(aki),
+    write('Lo siento esos datos no corresponde a ninguno de los personajes \n'),
+    habla(aki),
+    write('quiere jugar de nuevo?'),
+    habla(usuario),
+    leer(Resp_lei),
+    jugarNuevo(Resp_lei),!.
+
+
 
 verificar(0,_,_,ListaC):-
     adivinar(ListaC),!.
@@ -235,11 +255,6 @@ veri_caract(Elemento_buscar,ListaC,Nueva):-
     retract(estadocivil(_)),
     asserta(estadocivil(Elemento_buscar)),
     eliminar(estadocivil,ListaC,Nueva).
-
-%no sabe la respuesta
-veri_caract(Elemento_buscar,_,_):-
-   nosabe(P),
-   member(Elemento_buscar,P),!.
 
 %si lo que dijo no lo entiende
 veri_caract(_,ListaC,_):-
