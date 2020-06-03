@@ -275,12 +275,7 @@ excepcion(ListaC):-
     escoger_aleatorio(ListaP,Pregunta),
     habla(aki),
     imprimirconsola(Pregunta),
-    habla(usuario),
-    leer(Respuesta),
-    length(Respuesta,Cant),
-    length(ListaC,M),
-    print(M),
-    verificar(Cant,M,Respuesta,ListaC),!.
+    adivinar(ListaC),!.
 
 %-----------------------------Finalizar------------------------------
 final(Respuesta):-

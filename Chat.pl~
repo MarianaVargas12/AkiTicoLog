@@ -96,6 +96,13 @@ preparada(Entrada):-
   leer(Respuesta),
   preparada(Respuesta),!.
 
+preparada(_):-
+    habla(aki),
+    write('esa no es la respuesta que solicite, intentelo de nuevo \n'),
+    habla(usuario),
+    leer(Respuesta),
+    preparada(Respuesta),!.
+
 % salida si detecta un problema
 preparada(Respuesta):-
   member('salir',Respuesta), !.
@@ -268,12 +275,7 @@ excepcion(ListaC):-
     escoger_aleatorio(ListaP,Pregunta),
     habla(aki),
     imprimirconsola(Pregunta),
-    habla(usuario),
-    leer(Respuesta),
-    length(Respuesta,Cant),
-    length(ListaC,M),
-    print(M),
-    verificar(Cant,M,Respuesta,ListaC),!.
+    adivinar(ListaC).
 
 %-----------------------------Finalizar------------------------------
 final(Respuesta):-
