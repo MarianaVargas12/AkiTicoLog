@@ -3,7 +3,7 @@ leer(Res):-read(X),
     atomic_list_concat(List," ",X),
     oracion(List,[]),
    analizar(List,Res),!.
-leer('no_se').
+leer(['no_se']).
 
 %Funcion que comprueba las caracteristicas ingresadas por el usuario
 analizar(List,Res):-caracteristicas_bd(estatura,A),
@@ -22,6 +22,8 @@ sintagma_verbal(S1,S).
 oracion(S0,S):- pronombre(S0,S1),
 sintagma_verbal(S1,S).
 oracion(S0,S):- sintagma_verbal(S0,S).
+oracion(S0,S):- sintagma_verbal(S0,S1),adjetivo(S1,S2),
+articulo(S2,S3),adjetivo(S3,S).
 oracion(S0,S):-otros(S0,S).
 
 sintagma_nominal(S0,S):- articulo(S0,S1),
@@ -119,7 +121,8 @@ nombre([personaje|S],S).
 
 %Sustantivos
 %Profesion
-sustantivo([boxeador|S],S).
+sustantivo([boxeadora|S],S).
+sustantivo([influencer|S],S).
 sustantivo([cantante|S],S).
 sustantivo([maquillista|S],S).
 sustantivo([modelo|S],S).
