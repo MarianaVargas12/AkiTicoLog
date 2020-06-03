@@ -3,7 +3,7 @@ leer(Res):-read(X),
     atomic_list_concat(List," ",X),
     oracion(List,[]),
    analizar(List,Res),!.
-leer('no se').
+leer('no_se').
 
 %Funcion que comprueba las caracteristicas ingresadas por el usuario
 analizar(List,Res):-caracteristicas_bd(estatura,A),
@@ -77,6 +77,7 @@ articulo([una|S],S).
 articulo([unos|S],S).
 articulo([unas|S],S).
 articulo([del|S],S).
+articulo([de|S],S).
 articulo([en|S],S).
 articulo([y|S],S).
 
@@ -211,15 +212,15 @@ adjetivo(['163'|S],S).
 adjetivo(['160'|S],S).
 
 otros([hola|S],S).
-otros(["no_se"|S],S).
+otros([no_se|S],S).
 otros([no|S],S).
 otros([si|S],S).
-otros(["no_lo_se"|S],S).
-otros(["ni_idea"|S],S).
-otros(["no_tengo_idea"|S],S).
-otros(["quien_sabe"|S],S).
-otros(["no_me_acuerdo"|S],S).
-otros(["holaa"|S],S).
+otros([no_lo_se|S],S).
+otros([ni_idea|S],S).
+otros([no_tengo_idea|S],S).
+otros([quien_sabe|S],S).
+otros([no_me_acuerdo|S],S).
+otros([holaa|S],S).
 
 
 

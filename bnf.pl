@@ -3,7 +3,7 @@ leer(Res):-read(X),
     atomic_list_concat(List," ",X),
     oracion(List,[]),
    analizar(List,Res),!.
-leer('no se').
+leer('no_se').
 
 %Funcion que comprueba las caracteristicas ingresadas por el usuario
 analizar(List,Res):-caracteristicas_bd(estatura,A),
@@ -77,6 +77,7 @@ articulo([una|S],S).
 articulo([unos|S],S).
 articulo([unas|S],S).
 articulo([del|S],S).
+articulo([de|S],S).
 articulo([en|S],S).
 articulo([y|S],S).
 
@@ -190,7 +191,7 @@ adjetivo([corto|S],S).
 adjetivo([dreads|S],S).
 adjetivo([calvo|S],S).
 adjetivo([lacio|S],S).
-adjetivo([colochos|S],S).
+adjetivo([colocho|S],S).
 %Estado Civil
 adjetivo([soltero|S],S).
 adjetivo([soltera|S],S).
