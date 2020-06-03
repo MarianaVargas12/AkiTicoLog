@@ -1,7 +1,7 @@
 
 
 %Otros archivos
-:-[basedatos].
+:-[basedatos,bnf].
 :- use_module(library(random)).
  :- dynamic     estatura/1,
                 residencia/1,

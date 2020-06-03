@@ -274,16 +274,16 @@ imprimirconsola([]):- nl.
 imprimirconsola([H|T]):-
     write(H),
     write(' '),
-    imprimir_lista(T).
+    imprimirconsola(T).
 
 %--------------------------------Extras-------------------------------
 %Revisa si la respuesta fue si o no
 
 afirmativo(S):-
-  member('si',S).
+  member('si',S),!.
 
 negativo(S):-
-  member('no',S).
+  member('no',S),!.
 
 primer_elemento([X|Cola], X,Cola).
 

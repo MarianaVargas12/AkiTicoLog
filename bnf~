@@ -4,19 +4,24 @@ leer(Res):-read(X),
     oracion(List,[]),
    analizar(List,Res).
 
+%Funcion que comprueba las caracteristicas ingresadas por el usuario
 analizar(List,Res):-caracteristicas_bd(estatura,A),
     caracteristicas_bd(residencia,B), caracteristicas_bd(edad,C),
     caracteristicas_bd(profesion,D),caracteristicas_bd(color,E),
     caracteristicas_bd(largo,F),caracteristicas_bd(tipo,G),
     caracteristicas_bd(genero,H),caracteristicas_bd(estadocivil,I),
     union(A,B,J),union(J,C,K),union(K,D,L),union(L,E,M),union(M,F,N),
-    union(N,G,O),union(O,H,P),union(P,I,Q),union(Q,[si,'no se','no lo se','no'],R)   ,print(R),intersection(R,List,Res).
+    union(N,G,O),union(O,H,P),union(P,I,Q),
+    union(Q,[si,'no se','no lo se','no','hola'],R),
+    print(R),intersection(R,List,Res).
 
+%Identifica las diferentes formas de realizar una oracion
 oracion(S0,S):- sintagma_nominal(S0,S1),
 sintagma_verbal(S1,S).
 oracion(S0,S):- pronombre(S0,S1),
 sintagma_verbal(S1,S).
 oracion(S0,S):- sintagma_verbal(S0,S).
+oracion(S0,S):-otros(S0,S).
 
 sintagma_nominal(S0,S):- articulo(S0,S1),
 nombre(S1,S).
@@ -184,6 +189,17 @@ adjetivo(['165'|S],S).
 adjetivo(['178'|S],S).
 adjetivo(['163'|S],S).
 adjetivo(['160'|S],S).
+
+otros([hola|S],S).
+otros(["no se"|S],S).
+otros([no|S],S).
+otros([si|S],S).
+otros(["no lo se"|S],S).
+otros(["ni idea"|S],S).
+
+
+
+
 
 
 
