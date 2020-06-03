@@ -100,7 +100,6 @@ preguntas:-
 
 adivinar(Lista):-
     escoger_aleatorio(Lista,Caract),
-    %eliminar(Caract,Lista,Resultado),
     preguntas(Caract,ListaP),
     escoger_aleatorio(ListaP,Pregunta),
     imprimirconsola(Pregunta),
@@ -109,7 +108,6 @@ adivinar(Lista):-
     length(S,Cant),
     length(Lista,M),
     F is M-1,
-    print(F),
     verificar(Cant,F,S,Lista),!.
 
 
@@ -118,7 +116,6 @@ adivinar(Lista):-
 
 %sigue preguntando porque faltan datos
 verificar(_,0,_,_):-
-    write('aqui'),
     estatura(Estatura),
     residencia(Residencia),
     edad(Edad),
@@ -146,11 +143,9 @@ verificar(_,0,_,_):-
     leer(Respuesta),
     final(Respuesta),!.
 verificar(0,_,_,ListaC):-
-    write(ListaC),
     adivinar(ListaC),!.
 
 verificar(Cant,_,Caracteristicas,ListaC):-
-    write(Caracteristicas),
     nElemento(Caracteristicas,Cant,Elemento),
     veri_caract(Elemento,ListaC,Nueva),!,
     eliminar(Elemento,Caracteristicas,Nuev_Carac),
@@ -257,8 +252,8 @@ final(Respuesta):-
     imprimirconsola(Pregunta),
     write('quiere jugar de nuevo?'),
     habla(usuario),
-    leer(Respuesta),
-    jugarNuevo(Respuesta),!.
+    leer(Resp_lei),
+    jugarNuevo(Resp_lei),!.
 
 final(Respuesta):-
     negativo(Respuesta),!,
@@ -268,8 +263,8 @@ final(Respuesta):-
     imprimirconsola(Pregunta),
     write('quiere jugar de nuevo?'),
     habla(usuario),
-    leer(Respuesta),
-    jugarNuevo(Respuesta),!.
+    leer(Resp_lei),
+    jugarNuevo(Resp_lei),!.
 jugarNuevo(Respuesta):-
     afirmativo(Respuesta),!,
     habla(aki),

@@ -33,8 +33,24 @@ saludo:-
     leer(_).
 bienvenida:-
     habla(aki),
-    write('Le voy a explicar lo que vamos a jugar, usted va a pensar en uno de estos personajes:
-    yo le voy a hacer preguntas para intentar adivinar en quien esta pensando. Es muy facil.').
+    write('Le voy a explicar lo que vamos a jugar, usted va a pensar en uno de estos personajes:\n
+    Hanna Gabriel
+    Toledo
+    Alex Badilla
+    Melissa Mora
+    Karina Ramos
+    Edgar Silva
+    Johana Solano
+    Ignacio santos
+    Frankiln Chang Diaz
+    Ines Sanchez
+    Natalia Carvajal
+    Carlos Alvarado
+    Keylor Navas
+    Shirley Cruz
+    Hernan Jimenez
+    yo le voy a hacer preguntas para intentar adivinar en quien esta pensando, solo responde en minuscula y entre comillas simples y con un punto al final
+    .Es muy facil.').
 
 adivinar:-
     repeat,
@@ -61,7 +77,7 @@ comenzarJuego:-
 preparada:-
     habla(aki),
     write('necesito que responda la siguiente pregunta con si o no\n'),
-    write('Ya escogio un famositico?'),
+    write('Ya escogio un famositico?\n'),
     leer(Respuesta),
     preparada(Respuesta),!.
 
@@ -100,7 +116,6 @@ preguntas:-
 
 adivinar(Lista):-
     escoger_aleatorio(Lista,Caract),
-    %eliminar(Caract,Lista,Resultado),
     preguntas(Caract,ListaP),
     escoger_aleatorio(ListaP,Pregunta),
     imprimirconsola(Pregunta),
@@ -109,7 +124,6 @@ adivinar(Lista):-
     length(S,Cant),
     length(Lista,M),
     F is M-1,
-    print(F),
     verificar(Cant,F,S,Lista),!.
 
 
@@ -118,7 +132,6 @@ adivinar(Lista):-
 
 %sigue preguntando porque faltan datos
 verificar(_,0,_,_):-
-    write('aqui'),
     estatura(Estatura),
     residencia(Residencia),
     edad(Edad),
@@ -145,12 +158,11 @@ verificar(_,0,_,_):-
     habla(usuario),
     leer(Respuesta),
     final(Respuesta),!.
+
 verificar(0,_,_,ListaC):-
-    write(ListaC),
     adivinar(ListaC),!.
 
 verificar(Cant,_,Caracteristicas,ListaC):-
-    write(Caracteristicas),
     nElemento(Caracteristicas,Cant,Elemento),
     veri_caract(Elemento,ListaC,Nueva),!,
     eliminar(Elemento,Caracteristicas,Nuev_Carac),
