@@ -96,6 +96,13 @@ preparada(Entrada):-
   leer(Respuesta),
   preparada(Respuesta),!.
 
+preparada(_):-
+    habla(aki),
+    write('esa no es la respuesta que solicite, intentelo de nuevo \n'),
+    habla(usuario),
+    leer(Respuesta),
+    preparada(Respuesta),!.
+
 % salida si detecta un problema
 preparada(Respuesta):-
   member('salir',Respuesta), !.
