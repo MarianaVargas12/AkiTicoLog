@@ -2,7 +2,8 @@
 leer(Res):-read(X),
     atomic_list_concat(List," ",X),
     oracion(List,[]),
-   analizar(List,Res).
+   analizar(List,Res),!.
+leer('no se').
 
 %Funcion que comprueba las caracteristicas ingresadas por el usuario
 analizar(List,Res):-caracteristicas_bd(estatura,A),
@@ -12,8 +13,8 @@ analizar(List,Res):-caracteristicas_bd(estatura,A),
     caracteristicas_bd(genero,H),caracteristicas_bd(estadocivil,I),
     union(A,B,J),union(J,C,K),union(K,D,L),union(L,E,M),union(M,F,N),
     union(N,G,O),union(O,H,P),union(P,I,Q),
-    union(Q,[si,'no se','no lo se','no','hola'],R),
-    print(R),intersection(R,List,Res).
+    union(Q,[si,'no_se','no_tengo_idea','ni_idea','quien_sabe','no_me_acuerdo','nose','no','hola'],R),
+    intersection(R,List,Res).
 
 %Identifica las diferentes formas de realizar una oracion
 oracion(S0,S):- sintagma_nominal(S0,S1),
@@ -42,13 +43,22 @@ sintagma_nominal(S1,S).
 sintagma_verbal(S0,S):- verbo(S0,S1),
 sustantivo(S1,S).
 sintagma_verbal(S0,S):- verbo(S0,S1),
+sustantivo(S1,S2),adjetivo(S2,S).
+sintagma_verbal(S0,S):- verbo(S0,S1),
+sustantivo(S1,S2),adjetivo(S2,S3),articulo(S3,S4),adjetivo(S4,S).
+sintagma_verbal(S0,S):- verbo(S0,S1),articulo(S1,S2),
+sustantivo(S2,S3),adjetivo(S3,S4),articulo(S4,S5),adjetivo(S5,S).
+sintagma_verbal(S0,S):- verbo(S0,S1),
 adjetivo(S1,S).
 sintagma_verbal(S0,S):- verbo(S0,S1),
 adjetivo(S1,S2),sustantivo(S2,S).
 sintagma_verbal(S0,S):- verbo(S0,S1),articulo(S1,S2),
 sustantivo(S2,S).
 sintagma_verbal(S0,S):- verbo(S0,S1),articulo(S1,S2),
-sustantivo(S2,S).
+sustantivo(S2,S3), adjetivo(S3,S).
+sintagma_verbal(S0,S):- verbo(S0,S1),articulo(S1,S2),
+adjetivo(S2,S).
+
 
 
 %Articulo
@@ -68,6 +78,7 @@ articulo([unos|S],S).
 articulo([unas|S],S).
 articulo([del|S],S).
 articulo([en|S],S).
+articulo([y|S],S).
 
 
 %Verbos
@@ -76,6 +87,7 @@ verbo([vivía|S],S).
 verbo([tiene|S],S).
 verbo([tenía|S],S).
 verbo([nació|S],S).
+verbo([nacio|S],S).
 verbo([habla|S],S).
 verbo([juega|S],S).
 verbo([jugaba|S],S).
@@ -116,7 +128,7 @@ sustantivo([modelo|S],S).
 sustantivo([abogado|S],S).
 sustantivo([astronauta|S],S).
 sustantivo([fisico|S],S).
-sustantivo(["ingeniero mecanico"|S],S).
+sustantivo([ingeniero_mecanico|S],S).
 sustantivo([politologo|S],S).
 sustantivo([politico|S],S).
 sustantivo([presidente|S],S).
@@ -124,24 +136,32 @@ sustantivo([escritor|S],S).
 sustantivo([portero|S],S).
 sustantivo([deportista|S],S).
 sustantivo([futbolista|S],S).
-sustantivo(["director de cine"|S],S).
+sustantivo([director_de_cine|S],S).
 sustantivo([actor|S],S).
 sustantivo([comediante|S],S).
-sustantivo(["miss costa rica"|S],S).
+sustantivo([miss_costa_rica|S],S).
 sustantivo([anos|S],S).
 sustantivo([años|S],S).
 sustantivo([cm|S],S).
 sustantivo([centimetros|S],S).
 sustantivo([hombre|S],S).
 sustantivo([mujer|S],S).
+sustantivo([pelo|S],S).
+sustantivo([cabello|S],S).
+
+
 
 %Lugar
 sustantivo([heredia|S],S).
 sustantivo([alajuela|S],S).
-sustantivo(['san jose'|S],S).
-sustantivo([espana|S],S).
+sustantivo(['san_jose'|S],S).
 sustantivo([españa|S],S).
 sustantivo([guanacaste|S],S).
+sustantivo([londres|S],S).
+sustantivo([cuba|S],S).
+sustantivo(['san_ramon'|S],S).
+
+
 
 %Adjetivos
 %Edad
@@ -191,11 +211,18 @@ adjetivo(['163'|S],S).
 adjetivo(['160'|S],S).
 
 otros([hola|S],S).
-otros(["no se"|S],S).
+otros(["no_se"|S],S).
 otros([no|S],S).
 otros([si|S],S).
-otros(["no lo se"|S],S).
-otros(["ni idea"|S],S).
+otros(["no_lo_se"|S],S).
+otros(["ni_idea"|S],S).
+otros(["no_tengo_idea"|S],S).
+otros(["quien_sabe"|S],S).
+otros(["no_me_acuerdo"|S],S).
+otros(["holaa"|S],S).
+
+
+
 
 
 
